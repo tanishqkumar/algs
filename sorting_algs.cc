@@ -10,9 +10,9 @@ void print_arr(vector<int> arr)
 {
     for (int i = 0; i < arr.size(); ++i)
     {
-        if (i == arr.size()-1) // last char without comma and with \n instead
-           cout << arr[i] << endl;
-        else 
+        if (i == arr.size() - 1) // last char without comma and with \n instead
+            cout << arr[i] << endl;
+        else
             cout << arr[i] << ", ";
     }
 }
@@ -41,8 +41,8 @@ vector<int> generate_unsorted_array(int n)
     return random_ints_arr;
 }
 
-
-vector<int> insertion_sort(vector<int> input_arr){ 
+vector<int> insertion_sort(vector<int> input_arr)
+{
     for (int j = 1; j < input_arr.size(); ++j)
     {
         int key = input_arr[j];
@@ -54,22 +54,88 @@ vector<int> insertion_sort(vector<int> input_arr){
         }
         input_arr[i + 1] = key;
     }
-    assert(is_sorted(input_arr.begin(), input_arr.end()));
     return input_arr;
 }
 
+vector<int> merge(vector<int> l, vector<int> r)
+{
+    // merge left and right arrays and return merged
+    vector<int> merged_arr;
+    // add sentinels so we know when l, r are empty
+    l.push_back(-1);
+    r.push_back(-1);
+    // iterators for pairwise comparions
+    int i = 0;
+    int j = 0;
+    // [3, -1] and [8, 2, - 1]
+    while (l[i] != -1 || r[j] != -1)
+    { // while we still have stuff in l,r
+        // cases where we've used up everything in one input
+        if (l[i] == -1)
+        {
+            for (int n = j; n < r.size() - 1; ++n)
+                merged_arr.push_back(r[n]);
+            return merged_arr;
+        }
+        else if (r[j] == -1)
+        {
+            for (int n = i; n < l.size() - 1; ++n)
+                merged_arr.push_back(l[n]);
+            return merged_arr;
+        }
+        else if (l[i] <= r[j])
+        {
+            // compare l[i] and r[j] and push larger to merged_arr
+            merged_arr.push_back(l[i]);
+            ++i;
+        }
+        else
+        {
+            merged_arr.push_back(r[j]);
+            ++j;
+        }
+    }
+    // cout << "merged arr from merge() is: ";
+    print_arr(merged_arr);
+    return merged_arr;
+}
+
+vector<int> merge_sort(vector<int> input_arr)
+{
+    // check base case
+    if (input_arr.size() == 1)
+        return input_arr;
+    // divide input_arr into l and r
+    int middle = int(input_arr.size()) / 2;
+    vector<int> l;
+    for (int n = 0; n < middle; ++n)
+        l.push_back(input_arr[n]);
+    vector<int> r;
+    for (int n = middle; n < input_arr.size(); ++n)
+        r.push_back(input_arr[n]);
+    
+    l = merge_sort(l);
+    r = merge_sort(r);
+    vector<int> m = merge(l, r);
+
+    return m;
+}
 
 int main()
-{   
-    auto sorting_alg = insertion_sort; // choose your algorithm at the beginning and everything else just works
+{
+    // settings
+    auto chosen_sorting_alg = merge_sort; // choose your algorithm at the beginning and everything else just works
+    int arr_len = 1000;
 
-    int arr_len = 100;
+    // driver code
     vector<int> input_arr = generate_unsorted_array(arr_len);
-    cout << "before: ";
-    print_arr(input_arr);
+    // cout << "before: ";
+    // print_arr(input_arr);
 
-    input_arr = sorting_alg(input_arr); // doesn't mutate because c++ passes vector by value
+    vector<int> sorted_arr = chosen_sorting_alg(input_arr);
 
-    cout << "after : ";
-    print_arr(input_arr);
+    assert(is_sorted(sorted_arr.begin(), sorted_arr.end()));
+    
+    // cout << "after : ";
+    // print_arr(sorted_arr);
 }
