@@ -136,13 +136,29 @@ vector<int> bubble_sort(vector<int> input_arr){
 
 // most often used IRL because the constant factors on nlgn are very low
 vector<int> quick_sort(vector<int> input_arr){
+    // input_arr = partition(input_arr)
+    // q = input_arr.pop_back() // this is the value of the pivot
+    // l = quick_sort(input_arr[0:q])
+    // r = quick_sort(input_arr[q:end])
+    // return [l, r] // l, r are sorted so just mush them together and return
+}
 
+
+// [1, 4, 5, 2, 8, 3]
+vector<int> partition(vector<int> input_arr){ // store q as the last element, then pop it above
+    // int r = input_arr.size();
+    // pivot_val = input_arr[r]
+    // int i = -1
+    // int j = 0
+    // for j: 0 to r    
+        // if input_arr[j] > pivot_val
+            // add to 
 }
 
 int main()
 {
     // settings
-    auto chosen_sorting_alg = merge_sort; // choose your algorihtm
+    auto chosen_sorting_alg = bubble_sort; // choose your algorihtm
     int arr_len = 1000; 
 
     // driver code
@@ -153,7 +169,7 @@ int main()
     
     // auto start = chrono::high_resolution_clock::now();
     
-    vector<int> sorted_arr = bubble_sort(input_arr);
+    vector<int> sorted_arr = chosen_sorting_alg(input_arr);
     
     // auto stop = chrono::high_resolution_clock::now();
     // auto time_for_merge = (stop - start).count() / quick_pow10(4); 
