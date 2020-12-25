@@ -1,2 +1,3 @@
-print_arr(m);
-    // fflush(stdout);
+
+    // cout << "after : ";
+    // print_arr(sorted_arr)

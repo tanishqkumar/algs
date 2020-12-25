@@ -67,7 +67,6 @@ vector<int> merge(vector<int> l, vector<int> r)
     // iterators for pairwise comparions
     int i = 0;
     int j = 0;
-    // [3, -1] and [8, 2, - 1]
     while (l[i] != -1 || r[j] != -1)
     { // while we still have stuff in l,r
         // cases where we've used up everything in one input
@@ -95,7 +94,6 @@ vector<int> merge(vector<int> l, vector<int> r)
             ++j;
         }
     }
-    // cout << "merged arr from merge() is: ";
     print_arr(merged_arr);
     return merged_arr;
 }
@@ -121,21 +119,47 @@ vector<int> merge_sort(vector<int> input_arr)
     return m;
 }
 
+
+vector<int> bubble_sort(vector<int> input_arr){
+    bool swapped;
+    do { // continue passing through list until we go through a pass without swapping
+        swapped = false;
+        for (int i = 1; i < input_arr.size(); ++i){
+            if (input_arr[i] < input_arr[i-1]){
+                swap(input_arr[i], input_arr[i-1]);
+                swapped = true; // yes, we had to swap two items
+            }
+        }
+    } while (swapped); // should only need to happen input_arr.size() # of times
+    return input_arr;
+}
+
+// most often used IRL because the constant factors on nlgn are very low
+vector<int> quick_sort(vector<int> input_arr){
+
+}
+
 int main()
 {
     // settings
-    auto chosen_sorting_alg = merge_sort; // choose your algorithm at the beginning and everything else just works
-    int arr_len = 1000;
+    auto chosen_sorting_alg = merge_sort; // choose your algorihtm
+    int arr_len = 1000; 
 
     // driver code
     vector<int> input_arr = generate_unsorted_array(arr_len);
-    // cout << "before: ";
-    // print_arr(input_arr);
-
-    vector<int> sorted_arr = chosen_sorting_alg(input_arr);
-
-    assert(is_sorted(sorted_arr.begin(), sorted_arr.end()));
     
-    // cout << "after : ";
-    // print_arr(sorted_arr);
+    cout << "before: ";
+    print_arr(input_arr);
+    
+    // auto start = chrono::high_resolution_clock::now();
+    
+    vector<int> sorted_arr = bubble_sort(input_arr);
+    
+    // auto stop = chrono::high_resolution_clock::now();
+    // auto time_for_merge = (stop - start).count() / quick_pow10(4); 
+    
+    assert(is_sorted(sorted_arr.begin(), sorted_arr.end()));
+
+    cout << "after : ";
+    print_arr(sorted_arr);
 }
