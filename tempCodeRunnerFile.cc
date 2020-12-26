@@ -1,3 +1,2 @@
-
-    // cout << "after : ";
-    // print_arr(sorted_arr)
+int q = i+1;
+    input_arr.push_back(q); 

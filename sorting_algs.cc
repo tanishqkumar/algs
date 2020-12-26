@@ -134,32 +134,57 @@ vector<int> bubble_sort(vector<int> input_arr){
     return input_arr;
 }
 
+// [1, 4, 5, 2, 7, 3] where pv = 3,
+vector<int> partition(vector<int> input_arr)
+{                                     // store q as the last element, then pop it above
+    int r = input_arr.size();         // r = 6
+    int pivot_val = input_arr[r - 1]; // pv = 3
+    int i = -1;
+    for (int j = 0; j < r - 1; ++j)
+    {
+        if (input_arr[j] <= pivot_val)
+        {
+            i += 1;
+            swap(input_arr[j], input_arr[i]);
+        }
+    }
+
+    swap(input_arr[i + 1], input_arr[r - 1]); // put pv in the middle
+
+    // then return input_arr[] after sticking the index i+1 at the end to pass q up
+    int q = i + 1;
+    input_arr.push_back(q);
+    return input_arr;
+}
+
 // most often used IRL because the constant factors on nlgn are very low
 vector<int> quick_sort(vector<int> input_arr){
-    // input_arr = partition(input_arr)
-    // q = input_arr.pop_back() // this is the value of the pivot
-    // l = quick_sort(input_arr[0:q])
-    // r = quick_sort(input_arr[q:end])
-    // return [l, r] // l, r are sorted so just mush them together and return
+    input_arr = partition(input_arr);
+    int q = input_arr[input_arr.size()-1]; // get index as last element then pop
+    input_arr.pop_back(); 
+
+    vector<int> l;
+    for (int i = 0; i < q+1; ++i)
+        l.push_back(input_arr[i]);
+    l = quick_sort(l);
+
+    vector<int> r;
+    for (int i = q+1; i < input_arr.size(); ++i)
+        r.push_back(input_arr[i]);
+    r = quick_sort(r);
+
+    l.insert(l.end(), r.begin(), r.end()); // concatenate and return
+    return l;
 }
 
 
-// [1, 4, 5, 2, 8, 3]
-vector<int> partition(vector<int> input_arr){ // store q as the last element, then pop it above
-    // int r = input_arr.size();
-    // pivot_val = input_arr[r]
-    // int i = -1
-    // int j = 0
-    // for j: 0 to r    
-        // if input_arr[j] > pivot_val
-            // add to 
-}
+
 
 int main()
 {
     // settings
-    auto chosen_sorting_alg = bubble_sort; // choose your algorihtm
-    int arr_len = 1000; 
+    auto chosen_sorting_alg = quick_sort; // choose your algorihtm
+    int arr_len = 10; 
 
     // driver code
     vector<int> input_arr = generate_unsorted_array(arr_len);
@@ -169,6 +194,11 @@ int main()
     
     // auto start = chrono::high_resolution_clock::now();
     
+    // vector<int> test = { 1, 4, 5, 2, 7, 3 };
+    // test = partition(test);
+    // cout << "after partition we get: ";
+    // print_arr(test);
+
     vector<int> sorted_arr = chosen_sorting_alg(input_arr);
     
     // auto stop = chrono::high_resolution_clock::now();
