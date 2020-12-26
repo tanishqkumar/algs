@@ -50,7 +50,7 @@ struct sq {
     int tail = 0; 
 
     bool eq(int input){
-
+        
     }
 
 }
