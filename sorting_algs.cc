@@ -3,43 +3,9 @@
 #include <chrono>
 #include <assert.h>
 #include <algorithm>
+#include "helpers.hh" 
 
 using namespace std;
-
-void print_arr(vector<int> arr)
-{
-    for (int i = 0; i < arr.size(); ++i)
-    {
-        if (i == arr.size() - 1) // last char without comma and with \n instead
-            cout << arr[i] << endl;
-        else
-            cout << arr[i] << ", ";
-    }
-}
-
-int quick_pow10(int n)
-{
-    static int pow10[10] = {
-        1, 10, 100, 1000, 10000,
-        100000, 1000000, 10000000, 100000000, 1000000000};
-
-    return pow10[n];
-}
-
-vector<int> generate_unsorted_array(int n)
-{
-    // random number library stuff
-    random_device rd;
-    mt19937 gen(rd());
-    uniform_int_distribution<> distr(1, 1000); // limits for number
-
-    vector<int> random_ints_arr;
-    for (int i = 0; i < n; ++i)
-    {
-        random_ints_arr.push_back(distr(gen));
-    }
-    return random_ints_arr;
-}
 
 vector<int> insertion_sort(vector<int> input_arr)
 {
@@ -186,26 +152,34 @@ vector<int> selection_sort(vector<int> input_arr){
     return input_arr; 
 }
 
-// TODO: fix quick_sort
+// TODO: fix quick_sort and binary search, implement strassen and max-subarray
 int main()
 {
     // settings
-    auto chosen_sorting_alg = merge_sort; // choose your algorihtm
+    auto chosen_sorting_alg = insertion_sort; // choose your algorihtm
     int arr_len = 10; 
 
     // driver code
     vector<int> input_arr = generate_unsorted_array(arr_len);
     
-    cout << "before: ";
-    print_arr(input_arr);
+    // cout << "before: ";
+    // print_arr(input_arr);
     
-    // auto start = chrono::high_resolution_clock::now();
+    auto start = chrono::high_resolution_clock::now();
     vector<int> sorted_arr = chosen_sorting_alg(input_arr);
-    // auto stop = chrono::high_resolution_clock::now();
-    // auto time_for_merge = (stop - start).count() / quick_pow10(4); 
+    auto stop = chrono::high_resolution_clock::now();
+    auto time_for_insertion_sort = (stop - start).count() / quick_pow10(6); // normally in ns, so qp(6) is to change to ms
+    
+    
+    auto start1 = chrono::high_resolution_clock::now();
+    vector<int> sorted_arr_by_merge = merge_sort(input_arr);
+    auto stop1 = chrono::high_resolution_clock::now();
+    auto time_for_merge_sort = (stop1 - start1).count() / quick_pow10(6); // normally in ns, so qp(6) is to change to ms
     
     assert(is_sorted(sorted_arr.begin(), sorted_arr.end()));
 
-    cout << "after : ";
-    print_arr(sorted_arr);
+    cout << "time taken for insertion was " << time_for_insertion_sort << " ms for arr_len as " << arr_len << endl;
+    cout << "time taken for merge was " << time_for_merge_sort << " ms for arr_len as " << arr_len << endl;
+    // cout << "after : ";
+    // print_arr(sorted_arr);
 }
