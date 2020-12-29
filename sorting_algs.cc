@@ -156,11 +156,11 @@ vector<int> selection_sort(vector<int> input_arr){
 int main()
 {
     // settings
-    auto chosen_sorting_alg = insertion_sort; // choose your algorihtm
-    int arr_len = 10; 
+    auto chosen_sorting_alg = merge_sort; // choose your algorihtm
+    int arr_len = 100000; 
 
     // driver code
-    vector<int> input_arr = generate_unsorted_array(arr_len);
+    vector<int> input_arr = generate_unsorted_array(1, 1000, arr_len);
     
     // cout << "before: ";
     // print_arr(input_arr);
@@ -170,16 +170,8 @@ int main()
     auto stop = chrono::high_resolution_clock::now();
     auto time_for_insertion_sort = (stop - start).count() / quick_pow10(6); // normally in ns, so qp(6) is to change to ms
     
-    
-    auto start1 = chrono::high_resolution_clock::now();
-    vector<int> sorted_arr_by_merge = merge_sort(input_arr);
-    auto stop1 = chrono::high_resolution_clock::now();
-    auto time_for_merge_sort = (stop1 - start1).count() / quick_pow10(6); // normally in ns, so qp(6) is to change to ms
-    
     assert(is_sorted(sorted_arr.begin(), sorted_arr.end()));
 
-    cout << "time taken for insertion was " << time_for_insertion_sort << " ms for arr_len as " << arr_len << endl;
-    cout << "time taken for merge was " << time_for_merge_sort << " ms for arr_len as " << arr_len << endl;
     // cout << "after : ";
     // print_arr(sorted_arr);
 }

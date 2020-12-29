@@ -1,2 +1,1 @@
-cout << "r passed in is " << endl;
-    print_arr(r);
+max_left_sum
