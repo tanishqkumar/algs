@@ -1,0 +1,1 @@
+A small library of common algorithms and data structures, implemented efficiently in C++. 
