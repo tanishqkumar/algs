@@ -1,1 +1,2 @@
-max_left_sum
+ ";
+    print_arr(input_

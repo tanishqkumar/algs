@@ -152,26 +152,26 @@ vector<int> selection_sort(vector<int> input_arr){
     return input_arr; 
 }
 
-// TODO: fix quick_sort and binary search, implement strassen and max-subarray
+// TODO: fix quick_sort and binary search
 int main()
 {
     // settings
     auto chosen_sorting_alg = merge_sort; // choose your algorihtm
-    int arr_len = 100000; 
+    int arr_len = 100; 
 
     // driver code
     vector<int> input_arr = generate_unsorted_array(1, 1000, arr_len);
     
-    // cout << "before: ";
-    // print_arr(input_arr);
+    cout << "before: ";
+    print_arr(input_arr);
     
-    auto start = chrono::high_resolution_clock::now();
+    // auto start = chrono::high_resolution_clock::now();
     vector<int> sorted_arr = chosen_sorting_alg(input_arr);
-    auto stop = chrono::high_resolution_clock::now();
-    auto time_for_insertion_sort = (stop - start).count() / quick_pow10(6); // normally in ns, so qp(6) is to change to ms
+    // auto stop = chrono::high_resolution_clock::now();
+    // auto time_for_insertion_sort = (stop - start).count() / quick_pow10(6); // normally in ns, so qp(6) is to change to ms
     
     assert(is_sorted(sorted_arr.begin(), sorted_arr.end()));
 
-    // cout << "after : ";
-    // print_arr(sorted_arr);
+    cout << "after : ";
+    print_arr(sorted_arr);
 }

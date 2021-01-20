@@ -28,6 +28,15 @@ int quick_pow10(int n)
     return pow10[n];
 }
 
+int quick_pow2(int n)
+{
+    static int pow2[10] = {
+        1, 2, 4, 8, 16,
+        32, 64, 128, 256, 512};
+
+    return pow2[n];
+}
+
 vector<int> generate_unsorted_array(int a, int b, int n)
 {
     // random number library stuff
