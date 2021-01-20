@@ -122,17 +122,24 @@ vector<int> partition(vector<int> input_arr)
 
 // most often used IRL because the constant factors on nlgn are very low
 vector<int> quick_sort(vector<int> input_arr){
+    if (input_arr.size() <= 1){
+        if (input_arr.size() == 0) return {};
+        else return { input_arr[0] };
+    }
+
     input_arr = partition(input_arr);
+
     int q = input_arr[input_arr.size()-1]; // get index as last element then pop
     input_arr.pop_back(); 
 
-    vector<int> l;
-    for (int i = 0; i < q+1; ++i)
+    vector<int> l = {};
+    for (int i = 0; i < q; ++i)
         l.push_back(input_arr[i]);
     l = quick_sort(l);
 
-    vector<int> r;
-    for (int i = q+1; i < input_arr.size(); ++i) r.push_back(input_arr[i]);
+    vector<int> r = {};
+    for (int i = q; i < input_arr.size(); ++i) 
+        r.push_back(input_arr[i]);
     r = quick_sort(r);
 
     l.insert(l.end(), r.begin(), r.end()); // concatenate and return
@@ -152,18 +159,17 @@ vector<int> selection_sort(vector<int> input_arr){
     return input_arr; 
 }
 
-// TODO: fix quick_sort and binary search
 int main()
 {
     // settings
-    auto chosen_sorting_alg = merge_sort; // choose your algorihtm
-    int arr_len = 100; 
+    auto chosen_sorting_alg = quick_sort; // choose your algorihtm
+    int arr_len = 10000; 
 
     // driver code
     vector<int> input_arr = generate_unsorted_array(1, 1000, arr_len);
     
-    cout << "before: ";
-    print_arr(input_arr);
+    // cout << "before: ";
+    // print_arr(input_arr);
     
     // auto start = chrono::high_resolution_clock::now();
     vector<int> sorted_arr = chosen_sorting_alg(input_arr);
@@ -171,7 +177,9 @@ int main()
     // auto time_for_insertion_sort = (stop - start).count() / quick_pow10(6); // normally in ns, so qp(6) is to change to ms
     
     assert(is_sorted(sorted_arr.begin(), sorted_arr.end()));
+    cout << "sort working!" << endl; 
 
-    cout << "after : ";
-    print_arr(sorted_arr);
+    // cout << "after : ";
+    // print_arr(sorted_arr);
+
 }
