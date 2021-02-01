@@ -6,9 +6,21 @@
 #include <unordered_map>
 
 using namespace std;
+#define ull unsigned long long
 
 // OVERALL HELPERS
 void print_arr(vector<int> arr)
+{
+    for (int i = 0; i < arr.size(); ++i)
+    {
+        if (i == arr.size() - 1) // last char without comma and with \n instead
+            cout << arr[i] << endl;
+        else
+            cout << arr[i] << ", ";
+    }
+}
+
+void print_arr_ull(vector<ull> arr)
 {
     for (int i = 0; i < arr.size(); ++i)
     {
