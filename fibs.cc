@@ -4,7 +4,7 @@
 
 using namespace std;
 #define N 2
-const int mod = 1e9+7;
+const int mod = 2 << 16;
 #define matrix vector<vector<int>>
 const matrix id_mat_2x2 = {{1, 0}, {0, 1}};
 
@@ -12,7 +12,7 @@ int dot(vector<int> A, vector<int> B){
     int sum = 0; 
     assert(A.size() == B.size()); // used in matmul
     for(int i = 0; i < A.size(); ++i){
-        sum += A[i] * B[i]; 
+        sum += (A[i] * B[i]) % mod; 
         sum %= mod; 
     }
     return sum; 
@@ -22,7 +22,7 @@ vector<int> col(matrix X, int k){
     // take in matrix and the column we want, return the column as a row vector
     vector<int> col_as_row_vec; 
     for(int i = 0; i < X.size(); ++i){
-        col_as_row_vec.push_back(X[i][k] % mod);
+        col_as_row_vec.push_back(X[i][k]);
     }
     return col_as_row_vec; 
 }
@@ -124,7 +124,6 @@ vector<int> fib_matrix(int len){
     return fibs; 
 }
 
-// modify to return whole array and properly mod 2^16
 int main() {
     int fib_arr_size = 100;
 
