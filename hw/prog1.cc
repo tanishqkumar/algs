@@ -1,16 +1,18 @@
 #include <iostream>
-#include "../algs/helpers.hh"
+#include <cfloat>
+// #include "..helpers.hh"
 
 using namespace std; 
 
-#define ull unsigned long long;
-static const int NUM_DIM 4; 
+#define ull unsigned long long; 
+#define MAX_NUM_DIM 4;
+#define graph vector<vector<float> >;
 
 // ASSIGNMENT DETAILS
     // complete, undirected graphs only => nC2 vertices for n edges
 
 // high level design
-// for (int dim = 0; dim < NUM_DIM; ++dim){
+// for (int dim = 0; dim < MAX_NUM_DIM; ++dim){
     // for (ull n = 0; n < )
     // construct_complete_undir_graph(dim, vert);
 // }
@@ -22,20 +24,44 @@ static const int NUM_DIM 4;
     // higher dimensions (eg. up to 100)
 
 
-static const int num_vertices_list = { 
-    128;
-    256;
-    512;
-    1024;
-    2048;
-    4096;
-    8192;
-    16384;
-    32768;
-    65536;
-    131072;
-    262144;
+static const int num_vertices_list[] = { 
+    128, 
+    256, 
+    512, 
+    1024, 
+    2048, 
+    4096, 
+    8192, 
+    16384, 
+    32768, 
+    65536, 
+    131072, 
+    262144
+}; 
+
+struct vertex{
+    int dim; 
+    // (0.3, 0.5, 0.1)
+}; 
+
+struct edge{
+    vertex from; 
+    vertex to; 
+}; 
+
+// edge gen_random_edge(int dim){
+// }
+
+ull num_vert_to_num_edge (ull num_vert){
+    // return num_vert CHOOSE 2r
 }
+
+struct complete_graph{
+    int num_vert; 
+    int num_dim;
+    vector<vector<float> > adj_list = {{}};
+};
+
 
 
 // struct complete_graph{
@@ -49,7 +75,7 @@ static const int num_vertices_list = {
 // }
 
 int main(){
-
+    cout << "yolo";
 }
 
 
